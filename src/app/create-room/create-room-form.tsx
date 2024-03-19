@@ -14,28 +14,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { CreateRoomAction } from "./actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
-  description: z.string().min(3).max(100),
-  GithubRepo: z.string().url(),
+  description: z.string().min(3).max(250),
+  githubRepo: z.string().url(),
   language: z.string().min(3).max(50),
 });
 
 export function CreateRoomForm() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
-      GithubRepo: "",
+      githubRepo: "",
       language: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // TODO: Send the form data to the database
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await CreateRoomAction(values);
+    router.push("/rooms");
   }
 
   return (
@@ -75,7 +79,7 @@ export function CreateRoomForm() {
         />
         <FormField
           control={form.control}
-          name='GithubRepo'
+          name='githubRepo'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Github Repo</FormLabel>
