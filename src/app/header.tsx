@@ -16,12 +16,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
+import { register } from "module";
 
 function AccountDropdown() {
   const session = useSession();
   const isLoggedIn = !!session.data;
 
-  return (
+  return isLoggedIn ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={"ghost"}>
@@ -42,39 +43,41 @@ function AccountDropdown() {
         <DropdownMenuItem>
           <Settings className='mr-2' /> Settings
         </DropdownMenuItem>
-        {isLoggedIn ? (
-          <DropdownMenuItem onClick={() => signOut()}>
-            <LogOutIcon className='mr-2' /> Sign Out
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem onClick={() => signIn("google")}>
-            <LogInIcon className='mr-2' /> Sign In
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem onClick={() => signOut()}>
+          <LogOutIcon className='mr-2' /> Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  ) : (
+    <div>
+      <Button onClick={() => signIn()} variant={"ghost"}>
+        <LogInIcon className='mr-2' />
+        Sign In
+      </Button>
+      <Button onClick={() => signIn()}>
+        <LogInIcon className='mr-2' />
+        Sign Up
+      </Button>
+    </div>
   );
 }
 
 export function Header() {
   return (
-    <header className='dark:bg-gray-900 bg-gray-100 container mx-auto py-4'>
+    <header className='dark:bg-gray-900 bg-gray-100 container mx-auto py-2'>
       <div className='flex justify-between items-center'>
-        <div>
-          <Link href='/' passHref>
-            <Image src='/logo.png' width='60' height='60' alt='logo' />
-          </Link>
-        </div>
-
-        <div>
-          <h1 className='text-4xl font-bold text-center text-blue-700 py-2'>
-            The Rare Catch
-          </h1>
-        </div>
+        <Link
+          className='flex gap-2 items-center text-xl text-semibold hover:underline'
+          href='/'
+          passHref
+        >
+          <Image src='/logo.png' width='60' height='60' alt='logo' />
+          The Rare Catch
+        </Link>
 
         <div className='flex items-center gap-4'>
           <AccountDropdown />
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
     </header>
