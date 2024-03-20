@@ -19,8 +19,6 @@ function RoomCard({ room }: { room: Room }) {
       <CardHeader>
         <div className='flex gap-16 items-center'>
           <CardTitle>{room.name}</CardTitle>
-          <p> </p>
-          <p className='text-xs'>{room.language}</p>
         </div>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>
