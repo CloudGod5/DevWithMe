@@ -21,7 +21,7 @@ const formSchema = z.object({
   name: z.string().min(3).max(50),
   description: z.string().min(3).max(250),
   githubRepo: z.string().url(),
-  language: z.string().min(3).max(50),
+  tags: z.string().min(3).max(50),
 });
 
 export function CreateRoomForm() {
@@ -33,7 +33,7 @@ export function CreateRoomForm() {
       name: "",
       description: "",
       githubRepo: "",
-      language: "",
+      tags: "",
     },
   });
 
@@ -84,7 +84,10 @@ export function CreateRoomForm() {
             <FormItem>
               <FormLabel>Github Repo</FormLabel>
               <FormControl>
-                <Input placeholder='GitHub Repo Url' {...field} />
+                <Input
+                  placeholder='https://github.com/CloudGod5/DevWithMe'
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Please enter the GitHub Repo Url for your project.
@@ -95,15 +98,16 @@ export function CreateRoomForm() {
         />
         <FormField
           control={form.control}
-          name='language'
+          name='tags'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Primary Programming Language</FormLabel>
+              <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input placeholder='Language' {...field} />
+                <Input placeholder='Tags' {...field} />
               </FormControl>
               <FormDescription>
-                Please enter the primary programming language for your project.
+                List your programming languages, frameworks, and libraries used
+                in your project. Comma separated.
               </FormDescription>
               <FormMessage />
             </FormItem>
