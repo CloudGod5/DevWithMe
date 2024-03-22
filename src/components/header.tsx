@@ -16,7 +16,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
-import { SearchBar } from "./Search-bar";
 
 function AccountDropdown() {
   const session = useSession();
@@ -60,10 +59,6 @@ export function Header() {
           <Image src='/logo.png' width='60' height='60' alt='logo' />
           DevFinder
         </Link>
-
-        <div className='flex gap-4 '>
-          <SearchBar />
-        </div>
 
         <div className='flex items-center gap-4'>
           {session.data && <AccountDropdown />}
