@@ -1,4 +1,4 @@
-import { getRoom } from "@/services/rooms";
+import { getRoom } from "@/app/api/rooms";
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 import NoRoomPage from "@/app/rooms/noRoomPage";

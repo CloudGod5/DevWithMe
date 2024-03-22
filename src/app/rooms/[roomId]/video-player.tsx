@@ -60,7 +60,7 @@ export function DevFinderVideo({ room }: { room: Room }) {
             <SpeakerLayout />
             <CallControls
               onLeave={() => {
-                router.push("/rooms");
+                router.push("/my-rooms");
               }}
             />
             <CallParticipantsList onClose={() => undefined} />

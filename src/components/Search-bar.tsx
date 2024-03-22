@@ -39,9 +39,9 @@ export function SearchBar() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values.search) {
-      router.push(`/rooms/?search=${values.search}`);
+      router.push(`/rooms/explore/?search=${values.search}`);
     } else {
-      router.push("/rooms");
+      router.push("/rooms/explore");
     }
   }
 
@@ -64,9 +64,8 @@ export function SearchBar() {
             </FormItem>
           )}
         />
-        <Button type='submit'>
+        <Button size='icon' type='submit'>
           <SearchIcon className='mr-2' />
-          Search
         </Button>
 
         {query.get("search") && (
@@ -74,7 +73,7 @@ export function SearchBar() {
             variant={"link"}
             onClick={() => {
               form.setValue("search", "");
-              router.push("/rooms");
+              router.push("/rooms/explore");
             }}
           >
             Clear
