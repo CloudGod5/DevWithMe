@@ -43,9 +43,18 @@ export async function createRoom(
   userId: string,
   roomData: Omit<Room, "id" | "userId">
 ) {
-  await db.insert(room).values({ ...roomData, userId });
+  const insert = await db
+    .insert(room)
+    .values({ ...roomData, userId })
+    .returning();
+  return insert[0];
 }
 
 export async function editRoom(roomData: Room) {
-  await db.update(room).set(roomData).where(eq(room.id, roomData.id));
+  const update = await db
+    .update(room)
+    .set(roomData)
+    .where(eq(room.id, roomData.id))
+    .returning();
+  return update[0];
 }

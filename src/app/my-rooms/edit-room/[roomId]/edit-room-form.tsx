@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { editRoomAction } from "./actions";
 import { useParams, useRouter } from "next/navigation";
 import { Room } from "@/db/schema";
+import { toast } from "@/components/ui/use-toast";
+import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
@@ -43,6 +45,10 @@ export function EditRoomForm({ room }: { room: Room }) {
     await editRoomAction({
       id: params.roomId as string,
       ...values,
+    });
+    toast({
+      title: "Room Updated",
+      description: "Your room has been updated successfully.",
     });
     router.push("/my-rooms");
   }
